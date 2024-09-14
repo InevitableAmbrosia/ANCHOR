@@ -1,18 +1,35 @@
 Add classes "ANCHOR_partial" first and then "page_name" to a div in your main index.html.
 Create a views folder with page_name.html containing the content of your div.
 
-in an index.js controller, on $(document)ready:
+in an index.js controller, to load your partial:
+```
+$(document).ready(function(){
 	$.get("../views/page_name.html", function(data){
 		$("div.page_name").html(data);
 
-  //then initialize the code of the page route (otherwise the code will load before the partial):
-  initializePageName();
-  })
+		//optional, route to home_page_name if anchor is undefined (no # in URL), preserve params on refresh, route to page_name on refresh
+		if(ANCHOR.page() && !$.isEmptyObject(ANCHOR.getParams())){
+			ANCHOR.route("#" + ANCHOR.page() + "?" + ANCHOR.getParamsString());
+		}
+		else if(ANCHOR.page()){
+			ANCHOR.route("#" + ANCHOR.page())
+		}
+		else{
+			ANCHOR.route("#home_page_name")
+		}
+	})
+})
+```
 
+Initialize page_name partial on route:
+```
 $(document).on("ANCHOR, function(){
   pages();
 })
+```
 
+Partial initialization function called on each route thru "ANCHOR" event:
+```
 function pages(){
   //ANCHOR.page() returns page_name without the #
   switch(ANCHOR.page(){
@@ -22,11 +39,37 @@ function pages(){
   }
 
 }
+```
 
-To manually route to a page, use ANCHOR.route("#page_name"), including the #
+Load data from server on partial page_name init:
+```
+function initializePageName(){
+	$.get("/page_name", 
+	//optional if params
+	{
+		foo : ANCHOR.getParams() && ANCHOR.getParams().foo ? ANCHOR.getParams().foo : ""
+	}, function(data){
+		$("div.page_name").html(data);
+	})
+}
+```
 
+ANCHOR.setParams("key", "value") works to some extent, but raise an issue if you'd like me to fix it for you.
+
+To manually route to a page, use 
+```
+ANCHOR.route("#page_name");
+ANCHOR.route("#page_name?param=value&param2=value")
+```
+including the # before page_name partial name
+```
+
+To route on hyperlink click, use:
 $(a.page_name).click(function(){
   ANCHOR.route("#page_name");
 })
+```
 
-Requires JQuery.
+Requires JQuery. 
+
+Can be used as a lightweight alternative to Angular or React to Route Single Page Applications using #anchors
