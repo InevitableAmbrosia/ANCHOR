@@ -23,7 +23,7 @@ $(document).ready(function(){
 
 Initialize page_name partial on route:
 ```
-$(document).on("ANCHOR, function(){
+$(document).on("ANCHOR", function(){
   pages();
 })
 ```
@@ -41,7 +41,7 @@ function pages(){
 }
 ```
 
-Load data from server on partial page_name init:
+In controllers/page_name.js, load data from server on partial page_name init (this is called from pages()):
 ```
 function initializePageName(){
 	$.get("/page_name", 
