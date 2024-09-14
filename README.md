@@ -1,7 +1,8 @@
-Add classes "ANCHOR_partial" first and then "page_name" to a div in your main index.html.
-Create a views folder with page_name.html containing the content of your div.
+1) Add classes "ANCHOR_partial" first and then "page_name" to a div in your main index.html.
 
-In controllers/index.js, load your partial:
+2) Create a views folder with page_name.html containing the content of your div.
+
+3) In controllers/index.js, load your partial:
 ```
 $(document).ready(function(){
 	$.get("../views/page_name.html", function(data){
@@ -21,14 +22,14 @@ $(document).ready(function(){
 })
 ```
 
-Initialize page_name partial on route:
+4) In index.js initialize page_name partial on route:
 ```
 $(document).on("ANCHOR", function(){
   pages();
 })
 ```
 
-Partial initialization function called on each route thru "ANCHOR" event:
+4) In index.js include partial initialization function called on each route thru "ANCHOR" event:
 ```
 function pages(){
   //ANCHOR.page() returns page_name without the #
@@ -41,7 +42,7 @@ function pages(){
 }
 ```
 
-In controllers/page_name.js, load data from server on partial page_name init (this is called from pages()):
+5) In controllers/page_name.js, load data from server on partial page_name init (this is called from pages()):
 ```
 function initializePageName(){
 	$.get("/page_name", 
