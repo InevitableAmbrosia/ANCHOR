@@ -1,7 +1,7 @@
 Add classes "ANCHOR_partial" first and then "page_name" to a div in your main index.html.
 Create a views folder with page_name.html containing the content of your div.
 
-in an index.js controller, to load your partial:
+In controllers/index.js, load your partial:
 ```
 $(document).ready(function(){
 	$.get("../views/page_name.html", function(data){
