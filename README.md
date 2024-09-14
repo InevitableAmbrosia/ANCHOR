@@ -57,6 +57,8 @@ function initializePageName(){
 
 ANCHOR.setParams("key", "value") works to some extent, but raise an issue if you'd like me to fix it for you.
 
+ANCHOR.removeParams("key") removes a param.
+
 To manually route to a page, use 
 ```
 ANCHOR.route("#page_name");
