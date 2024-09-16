@@ -59,6 +59,12 @@ ANCHOR.setParams("key", "value") works to some extent, but raise an issue if you
 
 ANCHOR.removeParams("key") removes a param.
 
+To automatically route to a page, add ANCHOR class then the same class as your partial div to be shown on a click:
+```
+<a href="#partial_name?key=value" class="ANCHOR partial_name">Partial Name</a>
+```
+This is useful for menus so you don't need to manually route on .click events
+
 To manually route to a page, use 
 ```
 ANCHOR.route("#page_name");
